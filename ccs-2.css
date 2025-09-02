@@ -262,10 +262,20 @@ body {
 .welcome-heading {
     font-family: 'Playfair Display', serif;
     font-size: clamp(1.6rem, 3.5vw, 2.2rem);
-    line-height: 1.25;
+    line-height: 1.1;
+    letter-spacing: 0;
     color: hsl(var(--brown));
     font-weight: 700;
     margin: 0 auto 1rem;
+}
+
+/* Unificar tamaño dentro del título del modal */
+.welcome-heading .names,
+.welcome-heading .ampersand {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
 }
 
 .welcome-date {
