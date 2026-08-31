@@ -22,16 +22,19 @@ document.addEventListener('DOMContentLoaded', function() {
 // Formatos soportados:
 //   ?invitados=Juan Arias,Yerianny Arias,Valery Arias
 //   ?familia=Arias
-// Cada nombre se muestra como una "chip" con colores intercalados de la
-// paleta del sitio (marrón / dorado), ciclando si hay más de 4 nombres.
+// Muestra un badge con el total, título "Invitados", el número de
+// acompañantes (si aplica) y cada nombre como fila con colores intercalados
+// de la paleta del sitio (marrón / dorado), ciclando si hay más de 4 nombres.
 function initializeGuestGreeting() {
     const params = new URLSearchParams(window.location.search);
     const invitadosParam = params.get('invitados');
     const familiaParam = params.get('familia');
 
     const section = document.getElementById('guestSection');
+    const badge = document.getElementById('guestBadge');
+    const subtitle = document.getElementById('guestSubtitle');
     const greeting = document.getElementById('guestGreeting');
-    if (!section || !greeting) return;
+    if (!section || !badge || !subtitle || !greeting) return;
 
     let names = [];
 
@@ -42,6 +45,19 @@ function initializeGuestGreeting() {
     }
 
     if (names.length === 0) return;
+
+    // Badge con el total de invitados
+    badge.textContent = names.length;
+
+    // Subtítulo de acompañantes: solo tiene sentido cuando hay más de un
+    // nombre individual (no aplica al formato "Familia X")
+    const companions = invitadosParam ? names.length - 1 : 0;
+    if (companions > 0) {
+        subtitle.textContent = `(${companions} acompañante${companions > 1 ? 's' : ''})`;
+        subtitle.style.display = 'block';
+    } else {
+        subtitle.style.display = 'none';
+    }
 
     // Limpiar contenido previo
     greeting.innerHTML = '';
