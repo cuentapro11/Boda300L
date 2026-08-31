@@ -18,22 +18,22 @@ document.addEventListener('DOMContentLoaded', function() {
                        // del gesto del usuario. Esto es lo que exige iOS Safari.
 });
 
-// Saludo personalizado por invitado/familia, leído desde la URL.
+// Sección de saludo personalizado por invitado/familia, leída desde la URL.
 // Formatos soportados:
 //   ?invitados=Juan Arias,Yerianny Arias,Valery Arias
 //   ?familia=Arias
-// Los nombres se muestran con colores intercalados de la paleta del sitio
-// (dorado / marrón), ciclando si hay más de 4 nombres.
+// Cada nombre se muestra como una "chip" con colores intercalados de la
+// paleta del sitio (marrón / dorado), ciclando si hay más de 4 nombres.
 function initializeGuestGreeting() {
     const params = new URLSearchParams(window.location.search);
     const invitadosParam = params.get('invitados');
     const familiaParam = params.get('familia');
 
+    const section = document.getElementById('guestSection');
     const greeting = document.getElementById('guestGreeting');
-    if (!greeting) return;
+    if (!section || !greeting) return;
 
     let names = [];
-    let label = 'Con cariño para';
 
     if (invitadosParam) {
         names = invitadosParam.split(',').map(n => decodeURIComponent(n.trim())).filter(Boolean);
@@ -46,26 +46,15 @@ function initializeGuestGreeting() {
     // Limpiar contenido previo
     greeting.innerHTML = '';
 
-    const labelSpan = document.createElement('span');
-    labelSpan.className = 'guest-greeting-label';
-    labelSpan.textContent = `${label}: `;
-    greeting.appendChild(labelSpan);
-
     names.forEach((name, index) => {
         const nameSpan = document.createElement('span');
         const colorIndex = (index % 4) + 1;
         nameSpan.className = `guest-name color-${colorIndex}`;
         nameSpan.textContent = name;
         greeting.appendChild(nameSpan);
-
-        if (index < names.length - 2) {
-            greeting.appendChild(document.createTextNode(', '));
-        } else if (index === names.length - 2) {
-            greeting.appendChild(document.createTextNode(' y '));
-        }
     });
 
-    greeting.style.display = 'block';
+    section.style.display = 'block';
 }
 
 // Modal de bienvenida

@@ -23,7 +23,6 @@
             <h1 class="welcome-heading">Bienvenidos a la invitación de<br class="welcome-break" />
                 <span class="names">Rafael</span> <span class="ampersand">&</span> <span class="names">Juana</span>
             </h1>
-            <p id="guestGreeting" class="guest-greeting" style="display:none;"></p>
             <p class="welcome-subtitle">La música de fondo es parte de la experiencia</p>
             <div class="modal-buttons">
                 <button id="enterWithMusic" class="btn-wedding">Ingresar con música</button>
@@ -125,6 +124,12 @@
                         <div class="countdown-label">SEG</div>
                     </div>
                 </div>
+            </section>
+
+            <!-- Saludo para invitados (visible solo si la URL trae ?invitados= o ?familia=) -->
+            <section id="guestSection" class="guest-section" style="display:none;">
+                <p id="guestGreetingLabel" class="guest-greeting-label">Con cariño para</p>
+                <div id="guestGreeting" class="guest-greeting"></div>
             </section>
 
             <!-- Ceremony & Celebration -->
