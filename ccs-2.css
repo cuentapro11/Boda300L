@@ -345,28 +345,30 @@ body {
 
 .guest-greeting {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0.75rem;
-    max-width: 24rem;
+    justify-content: center;
+    gap: 0.6rem;
+    max-width: 28rem;
     margin: 0 auto;
 }
 
 .guest-name {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    font-size: clamp(0.95rem, 2.2vw, 1.1rem);
-    padding: 0.6rem 1.5rem;
-    border-radius: 10px;
-    width: 100%;
-    box-sizing: border-box;
+    font-size: clamp(0.9rem, 2.2vw, 1.05rem);
+    padding: 0.5rem 1.1rem;
+    border-radius: 8px;
+    display: inline-flex;
+    width: auto;
+    color: hsl(var(--foreground));
 }
 
-/* Colores intercalados, tomados de la misma paleta dorado/marrón del sitio */
-.guest-name.color-1 { color: hsl(var(--brown)); background: hsl(var(--brown) / 0.08); }
-.guest-name.color-2 { color: hsl(var(--gold-dark)); background: hsl(var(--gold-dark) / 0.08); }
-.guest-name.color-3 { color: hsl(var(--brown-dark)); background: hsl(var(--brown-dark) / 0.08); }
-.guest-name.color-4 { color: hsl(var(--gold)); background: hsl(var(--gold) / 0.1); }
+/* Colores intercalados (fondo), tomados de la misma paleta dorado/marrón del sitio */
+.guest-name.color-1 { background: hsl(var(--brown) / 0.1); }
+.guest-name.color-2 { background: hsl(var(--gold-dark) / 0.12); }
+.guest-name.color-3 { background: hsl(var(--brown-dark) / 0.1); }
+.guest-name.color-4 { background: hsl(var(--gold) / 0.14); }
 
 .guest-closing {
     margin-top: 1.5rem;
@@ -687,9 +689,15 @@ body {
 /* Countdown typography: more elegant and smooth */
 .countdown-number {
 	font-family: 'Playfair Display', serif;
-	font-weight: 700;
-	font-variant-numeric: lining-nums;
-	letter-spacing: 0.01em;
+	font-weight: 500;
+	font-variant-numeric: lining-nums oldstyle-nums;
+	letter-spacing: -0.02em;
+	line-height: 1;
+	background: linear-gradient(180deg, hsl(var(--brown)), hsl(var(--gold-dark)));
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: hsl(var(--brown-dark));
 }
 
 .countdown-label {
