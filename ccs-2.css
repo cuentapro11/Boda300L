@@ -429,6 +429,7 @@ body {
 .hero-left-bg {
     position: absolute;
     inset: 0;
+    top: -40%; /* colchón arriba: evita el hueco al mover la capa hacia abajo */
     width: 100%;
     height: 140%;
     background-image: url('https://i.ibb.co/chTxPwgt/boda-imagen.jpg');

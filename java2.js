@@ -234,7 +234,12 @@ function initializeParallax() {
             heroLayer.style.transform = 'translate3d(0,0,0)';
         } else {
             const speed = computeSpeed();
-            heroLayer.style.transform = `translate3d(0, ${Math.round(lastScrollY * speed)}px, 0)`;
+            // Tope: nunca desplazar más que el colchón real de la capa (40% del alto),
+            // para que no se despegue del contenedor y deje un hueco vacío.
+            const maxOffset = heroLeft.clientHeight * 0.4;
+            let translateY = lastScrollY * speed;
+            translateY = Math.max(0, Math.min(maxOffset, translateY));
+            heroLayer.style.transform = `translate3d(0, ${Math.round(translateY)}px, 0)`;
         }
         ticking = false;
     };
