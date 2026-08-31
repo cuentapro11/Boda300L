@@ -647,6 +647,25 @@ body {
     background-color: hsl(var(--warm-white));
 }
 
+/* Línea de sombra en la costura: da la sensación de que la sección
+   está "por debajo" de las secciones vecinas (efecto de capas).
+   Aplicar esta clase a cualquier <section> para replicar el efecto. */
+.section-shadow-seam {
+    position: relative;
+    box-shadow:
+        inset 0 10px 14px -12px rgba(0, 0, 0, 0.28),
+        inset 0 -10px 14px -12px rgba(0, 0, 0, 0.28);
+}
+
+/* Variante solo arriba o solo abajo, por si no querés el efecto en ambos bordes */
+.section-shadow-seam-top {
+    box-shadow: inset 0 10px 14px -12px rgba(0, 0, 0, 0.28);
+}
+
+.section-shadow-seam-bottom {
+    box-shadow: inset 0 -10px 14px -12px rgba(0, 0, 0, 0.28);
+}
+
 /* Countdown */
 .countdown-section {
     text-align: center;
@@ -693,6 +712,8 @@ body {
 	letter-spacing: -0.02em;
 	line-height: 1;
 	color: hsl(var(--foreground));
+	margin-bottom: 0.5rem;
+	display: block;
 }
 
 .countdown-label {
@@ -1156,7 +1177,7 @@ body {
     }
     .events-container {
         grid-template-columns: 1fr;
-        gap: 3rem;
+        gap: 4.5rem;
     }
     .party-grid {
         grid-template-columns: 1fr;
