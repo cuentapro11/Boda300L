@@ -2,7 +2,7 @@
 let isPlaying = false;
 let player = null;
 let currentSlide = 0;
-const totalSlides = 12;
+const totalSlides = 6;
 let enableMusic = false;
 
 // Inicializar cuando el DOM esté listo
@@ -136,7 +136,7 @@ function updateMusicIcon() {
 
 // Countdown
 function initializeCountdown() {
-    const targetDate = new Date('2025-08-15T10:00:00').getTime();
+    const targetDate = new Date('2026-12-31T10:00:00').getTime();
     
     function updateCountdown() {
         const now = new Date().getTime();
@@ -285,7 +285,7 @@ function showGifts() {
 }
 
 function confirmAttendance() {
-    const message = "¡Hola! Quiero confirmar mi asistencia a la boda de Rafael y Juana el 15 de Agosto 💒✨";
+    const message = "¡Hola! Quiero confirmar mi asistencia a la boda de Rafael y Juana el 31 de Diciembre 💒✨";
     const whatsappUrl = `https://wa.me/1234567890?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 }
