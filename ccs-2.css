@@ -75,11 +75,11 @@
     100% { opacity: 0; r: 0; }
 }
 
-.animated-music {
+.animated-upload {
     transition: transform 0.3s ease;
 }
 
-.animated-music:hover {
+.animated-upload:hover {
     transform: scale(1.1) rotate(5deg);
 }
 
@@ -117,11 +117,11 @@
     100% { transform: translateY(0); }
 }
 
-.animated-whatsapp {
+.animated-form {
     transition: transform 0.3s ease;
 }
 
-.animated-whatsapp:hover {
+.animated-form:hover {
     transform: scale(1.1);
 }
 
@@ -134,7 +134,7 @@
 }
 
 /* Efectos globales para iconos */
-.event-icon, .party-icon, .gift-icon, .whatsapp-icon, .camera-icon, .modal-icon {
+.event-icon, .party-icon, .gift-icon, .whatsapp-icon, .form-icon, .camera-icon, .modal-icon {
     overflow: visible;
     filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.1));
 }
@@ -143,11 +143,11 @@
 .animated-heart svg,
 .animated-celebration svg,
 .animated-camera svg,
-.animated-music svg,
+.animated-upload svg,
 .animated-dresscode svg,
 .animated-clipboard svg,
 .animated-gift svg,
-.animated-whatsapp svg,
+.animated-form svg,
 .animated-volume svg {
     will-change: transform;
     backface-visibility: hidden;
@@ -251,7 +251,7 @@ body {
     content: "";
     position: absolute;
     inset: -40vh -10vw -40vh -10vw;
-    background-image: url('https://i.ibb.co/chTxPwgt/boda-imagen.jpg');
+    background-image: url('foto0.jpg');
     background-size: cover;
     background-position: center;
     opacity: 0.55;
@@ -512,7 +512,7 @@ body {
     left: 0;
     width: 100%;
     height: calc(100% + 60px);
-    background-image: url('https://i.ibb.co/chTxPwgt/boda-imagen.jpg');
+    background-image: url('foto0.jpg');
     background-size: cover;
     background-position: center 20%; /* prioriza mostrar la parte de arriba (rostros) en vez del centro */
     background-repeat: no-repeat;
@@ -771,6 +771,13 @@ body {
 	animation: tieFloat 3s ease-in-out infinite;
 }
 
+/* Ícono de subir foto (reemplaza a música) */
+.upload-icon {
+	width: 110px;
+	height: 110px;
+	animation: tieFloat 3s ease-in-out infinite;
+}
+
 @keyframes tieFloat {
 	0% { transform: translateY(0) rotate(0deg); }
 	50% { transform: translateY(-4px) rotate(1deg); }
@@ -914,7 +921,7 @@ body {
 
 .carousel-item {
     flex: 0 0 100%;
-    height: 480px;
+    height: 600px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1020,6 +1027,7 @@ body {
 }
 
 .party-icon .tie-icon,
+.party-icon .upload-icon,
 .party-icon lord-icon,
 .party-icon svg {
 	max-width: 100%;
@@ -1048,7 +1056,8 @@ body {
 }
 
 .gift-icon,
-.whatsapp-icon {
+.whatsapp-icon,
+.form-icon {
     width: 5rem;
     height: 5rem;
     margin: 0 auto 2rem;
@@ -1065,7 +1074,8 @@ body {
     animation: gentle-bounce 2s ease-in-out infinite;
 }
 
-.whatsapp-icon {
+.whatsapp-icon,
+.form-icon {
     animation: gentle-pulse 2s ease-in-out infinite;
 }
 
@@ -1186,7 +1196,7 @@ body {
         grid-template-columns: 1fr;
     }
     .carousel-item {
-        height: 320px;
+        height: 420px;
     }
     .carousel-btn {
         width: 40px;
@@ -1206,7 +1216,7 @@ body {
         font-size: 2.5rem;
     }
     .carousel-item {
-        height: 280px;
+        height: 380px;
     }
     .modal-content {
         padding: 1.5rem;

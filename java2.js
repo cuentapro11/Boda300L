@@ -84,21 +84,33 @@ function initializeModal() {
         modal.style.display = 'none';
         document.getElementById('musicPlayer').style.display = 'block';
 
-        // El player ya existe (se precargó en DOMContentLoaded), así que
-        // playVideo() se llama de inmediato, dentro del mismo tick del click.
-        // Eso es lo que iOS necesita para no bloquear el audio.
+        // El video ya se está reproduciendo en silencio desde que cargó la
+        // página (ver onPlayerReady). Acá solo le quitamos el mute, que es
+        // una acción síncrona dentro del gesto del usuario: es lo único que
+        // iOS Safari exige para permitir audio, así que suena "de una" en
+        // este primer toque, sin depender de que playVideo() arranque justo
+        // en este instante.
         if (playerReady && player) {
-            player.playVideo();
+            player.unMute();
+            if (!isPlaying) {
+                player.playVideo();
+            }
             isPlaying = true;
             updateMusicIcon();
         }
         // Si el player todavía no está listo (conexión lenta), onPlayerReady
-        // se encarga de reproducir apenas termine de inicializar.
+        // se encarga de quitar el mute apenas termine de inicializar.
     });
 
     enterWithoutMusic.addEventListener('click', function() {
         enableMusic = false;
         modal.style.display = 'none';
+        // Si ya estaba sonando en silencio, la pausamos y la volvemos a mutear.
+        if (playerReady && player) {
+            player.pauseVideo();
+            player.mute();
+            isPlaying = false;
+        }
     });
 }
 
@@ -142,12 +154,20 @@ function onPlayerReady(event) {
     const musicToggle = document.getElementById('musicToggle');
     musicToggle.addEventListener('click', toggleMusic);
 
+    // Arrancamos la reproducción en silencio desde ya. El autoplay muteado
+    // está permitido por Safari/iOS sin necesidad de gesto del usuario, así
+    // que cuando el usuario toque "Ingresar con música" solo hace falta
+    // quitarle el mute (acción síncrona dentro del click) para que se
+    // escuche de inmediato, sin ningún retraso.
+    event.target.mute();
+    event.target.playVideo();
+
     // Caso borde: el usuario ya hizo click en "con música" antes de que el
-    // player terminara de inicializar (ej. conexión lenta). Lo reproducimos
-    // apenas esté listo.
+    // player terminara de inicializar (ej. conexión lenta). Le quitamos el
+    // mute apenas esté listo.
     if (enableMusic && !isPlaying) {
         document.getElementById('musicPlayer').style.display = 'block';
-        event.target.playVideo();
+        event.target.unMute();
         isPlaying = true;
         updateMusicIcon();
     }
@@ -325,22 +345,11 @@ function initializeParallax() {
 }
 
 // Funciones de los botones
-function openLocation(location) {
-    const addresses = {
-        ceremony: "Parroquia Nuestra Señora de Lujan, Av. Pergamino 203, Santo Domingo",
-        celebration: "Salón de fiestas Avril, Av. Los Reartes 12, Santo Domingo"
-    };
-    
-    const address = addresses[location];
-    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
-    window.open(mapsUrl, '_blank');
-}
-
-function suggestMusic() {
-    const whatsappMessage = "¡Hola! Me gustaría sugerir una canción para la playlist de la boda de Rafael y Juana 🎵";
-    const whatsappUrl = `https://wa.me/1234567890?text=${encodeURIComponent(whatsappMessage)}`;
-    window.open(whatsappUrl, '_blank');
-}
+// Nota: esta es una plantilla de ejemplo. Los botones de "¿Cómo llegar?",
+// "Subir foto", "Ver más" (regalo) y "Confirmar asistencia" se dejaron sin
+// enlace a propósito (sin onclick en el HTML); cuando se use con datos
+// reales, cada uno debe apuntar a su Google Maps, carpeta de Drive,
+// método de regalo y Google Form correspondientes.
 
 function showDressCode() {
     showToast("Dress Code", "Elegante sport - Colores tierra y dorados son bienvenidos 👗");
@@ -348,18 +357,6 @@ function showDressCode() {
 
 function showTips() {
     showToast("Tips y Notas", "La ceremonia será al aire libre. Se recomienda llegar 15 minutos antes ⛪");
-}
-
-function showGifts() {
-    const message = "Hola, me gustaría información sobre los regalos para la boda de Rafael y Juana 🎁";
-    const whatsappUrl = `https://wa.me/1234567890?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-}
-
-function confirmAttendance() {
-    const message = "¡Hola! Quiero confirmar mi asistencia a la boda de Rafael y Juana el 31 de Diciembre 💒✨";
-    const whatsappUrl = `https://wa.me/1234567890?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
 }
 
 // Sistema de Toast
